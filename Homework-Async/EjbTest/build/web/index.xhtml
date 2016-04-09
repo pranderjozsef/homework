@@ -1,0 +1,14 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html">
+ 
+    <h:body>
+        <h:form id="form">
+            <h:commandLink id="link" action="#{myBean.writeFiles()}"
+                            value="void"/>
+            <br/>
+            <h:commandLink id="link2" action="#{myBean.writeStatus(5)}"
+                            value="Future"/>
+        </h:form>
+    </h:body>
+</html>
+
