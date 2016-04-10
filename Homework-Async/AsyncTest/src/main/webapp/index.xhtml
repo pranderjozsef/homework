@@ -3,10 +3,10 @@
  
     <h:body>
         <h:form id="form">
-            <h:commandLink id="link" action="#{myBean.writeFiles()}"
+            <h:commandLink id="link" action="#{myBean.writeLogVoid()}"
                             value="void"/>
             <br/>
-            <h:commandLink id="link2" action="#{myBean.writeStatus(5)}"
+            <h:commandLink id="link2" action="#{myBean.writeLogFuture(5)}"
                             value="Future"/>
         </h:form>
     </h:body>
