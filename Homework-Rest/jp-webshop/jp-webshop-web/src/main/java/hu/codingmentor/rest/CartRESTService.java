@@ -43,7 +43,7 @@ public class CartRESTService implements Serializable{
     public List <MobileDTO> addToCart(@Context HttpServletRequest request, MobileDTO mobile) {
         LoginCheck.isLogedIn(request);
         for(MobileDTO m : inventoryService.getMobileList()){
-            if(mobile.getType().equals(m.getType()) && mobile.getManufacturer().equals(m.getManufacturer())){
+            if(mobile.equals(m)){
                 if(m.getPiece()-cartService.getNumberOfTheSameMobile(m.getType(), m.getManufacturer()) > 0)
                 {
                     cartService.addToCart(mobile);

@@ -29,7 +29,7 @@ public class LoginCheck {
         if ((userObject != null) && (userObject instanceof UserDTO))
             return (UserDTO) userObject;
         else 
-            throw new BadRequestException("User is not loged in.");
+            throw new BadRequestException("You are not logged in.");
     }
     
     public static boolean isLogedInAsAdmin(@Context HttpServletRequest request) {
