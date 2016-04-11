@@ -6,8 +6,10 @@ import hu.codingmentor.exception.BadRequestException;
 import hu.codingmentor.interceptor.BeanValidation;
 import hu.codingmentor.service.CartService;
 import hu.codingmentor.service.InventoryService;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,7 +25,8 @@ import javax.ws.rs.core.MediaType;
 @BeanValidation
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CartRESTService{
+@SessionScoped
+public class CartRESTService implements Serializable{
     private static final String NOT_LOGED_IN = "You are not logged in."; 
     
     @Inject
@@ -35,19 +38,19 @@ public class CartRESTService{
     @GET
     public Collection<MobileDTO> getMobiles(@Context HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        if(session != null){
-            session.setMaxInactiveInterval(600);
-            Object userObject = session.getAttribute("user");
-            if ((userObject != null) && (userObject instanceof UserDTO)) {
+        //if(session != null){
+            //session.setMaxInactiveInterval(600);
+            //Object userObject = session.getAttribute("user");
+            //if ((userObject != null) && (userObject instanceof UserDTO)) {
                 return cartService.getMobiles();
-            }
-        }
-        throw new BadRequestException(NOT_LOGED_IN);
+            //}
+        //}
+        //throw new BadRequestException(NOT_LOGED_IN);
     }
     
     @POST
     public List <MobileDTO> addToCart(@Context HttpServletRequest request, MobileDTO mobile) {
-        HttpSession session = request.getSession(true);
+        /*HttpSession session = request.getSession(true);
         if(session != null){
             session.setMaxInactiveInterval(600);
             Object userObject = session.getAttribute("user");
@@ -55,17 +58,17 @@ public class CartRESTService{
                 for(MobileDTO m : inventoryService.getMobileList()){
                     if(mobile.getType().equals(m.getType()) && mobile.getManufacturer().equals(m.getManufacturer())){
                         if(m.getPiece()-cartService.getNumberOfTheSameMobile(m.getType(), m.getManufacturer()) > 0)
-                        {
+                        {*/
                             cartService.addToCart(mobile);
                             return cartService.getMobiles();
-                        }
+                        /*}
                         throw new BadRequestException("This mobile is out of stock");
                     }
                 }
                 throw new BadRequestException("This shop doesn't sell this kind of mobile");
             }
         }
-        throw new BadRequestException(NOT_LOGED_IN);  
+        throw new BadRequestException(NOT_LOGED_IN); */ 
     }
     
     @POST

@@ -2,6 +2,7 @@ package hu.codingmentor.interceptor;
 
 import hu.codingmentor.annotation.Validate;
 import hu.codingmentor.exception.ValidationException;
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.Set;
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ import javax.validation.Validator;
 
 @Interceptor
 @BeanValidation
-public class ValidatorInterceptor {
+public class ValidatorInterceptor implements Serializable{
 
     @Inject
     private Validator validator;
