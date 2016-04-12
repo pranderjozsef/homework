@@ -1,0 +1,87 @@
+Bejelentkezés adminként:
+POST
+http://localhost:8080/jp-webshop-web/webresources/users/login?username=miki&password=Password0
+
+
+Userek lekérése:
+GET
+http://localhost:8080/jp-webshop-web/webresources/users/
+
+
+Egy bizonyos user lekérése:
+GET
+http://localhost:8080/jp-webshop-web/webresources/users/andras
+
+
+Egy user felvétele
+POST
+http://localhost:8080/jp-webshop-web/webresources/users/
+{
+"dateOfBirth": "1960-02-26",
+"registrationDate": "2003-06-16",
+"admin": false,
+"firstname": "Zsolt",
+"lastname": "Bartha",
+"password": "Password2",
+"username": "zsolt"
+}
+
+
+Egy törlése:
+DELETE
+http://localhost:8080/jp-webshop-web/webresources/users/zsolt
+
+
+Egy user módosítása:
+POST
+http://localhost:8080/jp-webshop-web/webresources/users/andras
+{
+"admin": false,
+"dateOfBirth": "1962-10-17",
+"firstname": "Andras",
+"lastname": "Berenyi",
+"password": "New Password.",
+"registrationDate": "2012-10-20",
+"username": "andras"
+}
+
+
+Mobilok listájának lekérése:
+GET
+http://localhost:8080/jp-webshop-web/webresources/inventory
+
+
+Mobilok felvétele a készletbe
+POST
+http://localhost:8080/jp-webshop-web/webresources/inventory
+{
+"manufacturer": "Alcatel",
+"piece": 7,
+"price": 270,
+"type": "Smart Phone"
+}
+
+
+Mobilok kosárba tétele (admin is vásárolhat):
+POST
+{
+"manufacturer": "Samsung",
+"piece": 12,
+"price": 400,
+"type": "Smart Phone"
+}
+
+
+Kosárban lévõ mobilok lekérése:
+GET
+http://localhost:8080/jp-webshop-web/webresources/cart
+
+
+Vásárlás, kosár kiürítése:
+POST
+http://localhost:8080/jp-webshop-web/webresources/cart/buy
+
+
+Kijelentkezés
+POST
+http://localhost:8080/jp-webshop-web/webresources/users/logout
