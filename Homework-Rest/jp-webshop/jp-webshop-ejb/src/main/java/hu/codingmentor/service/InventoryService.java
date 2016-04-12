@@ -5,14 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
 @Singleton
 @Startup
-@LocalBean
 public class InventoryService implements Serializable{
     private static final String SMART_PHONE = "Smart Phone"; 
     private static final List<MobileDTO> mobileList = new ArrayList<>();
@@ -66,19 +64,15 @@ public class InventoryService implements Serializable{
     
     public void buyMobile() {
         for (MobileDTO mobileInCart : cartService.getMobiles()) {
-            for(MobileDTO mobileInStock : mobileList){
-                if(mobileInCart.equals(mobileInStock)){
-                    int index = mobileList.indexOf(mobileInStock);
-                    mobileInStock.setPiece(mobileInStock.getPiece()-1);
-                    mobileList.set(index, mobileInStock);
-                }
-            }       
+            int index = mobileList.indexOf(mobileInCart);
+            mobileInCart.setPiece(mobileInCart.getPiece()-1);
+            mobileList.set(index, mobileInCart);
         }
     }
     
-    public Integer getNumberOfTheSameMobile(String type, String manufacturer){
+    public Integer getNumberOfTheSameMobileInTheInventory(MobileDTO mobile){
         for(MobileDTO m : mobileList){
-            if(type.equals(m.getType()) && manufacturer.equals(m.getManufacturer())){
+            if(m.equals(mobile)){
                 return m.getPiece();
             }
         }

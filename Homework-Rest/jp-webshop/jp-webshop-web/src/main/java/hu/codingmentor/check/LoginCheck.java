@@ -4,7 +4,6 @@ import hu.codingmentor.dto.UserDTO;
 import hu.codingmentor.exception.BadRequestException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Context;
 
 public class LoginCheck {
 
@@ -12,9 +11,8 @@ public class LoginCheck {
         //Empty
     }
     
-    public static boolean isLogedIn(@Context HttpServletRequest request){
+    public static boolean isLogedIn(HttpServletRequest request){
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         Object userObject = session.getAttribute("user");
         if ((userObject != null) && (userObject instanceof UserDTO))
             return true;
@@ -22,9 +20,8 @@ public class LoginCheck {
             throw new BadRequestException("You are not logged in.");
     }
     
-    public static UserDTO getLogedInUser(@Context HttpServletRequest request){
+    public static UserDTO getLogedInUser(HttpServletRequest request){
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         Object userObject = session.getAttribute("user");
         if ((userObject != null) && (userObject instanceof UserDTO))
             return (UserDTO) userObject;
@@ -32,7 +29,7 @@ public class LoginCheck {
             throw new BadRequestException("You are not logged in.");
     }
     
-    public static boolean isLogedInAsAdmin(@Context HttpServletRequest request) {
+    public static boolean isLogedInAsAdmin(HttpServletRequest request) {
         UserDTO currentUser = getLogedInUser(request);
         if (currentUser.isAdmin()) {
             return true;

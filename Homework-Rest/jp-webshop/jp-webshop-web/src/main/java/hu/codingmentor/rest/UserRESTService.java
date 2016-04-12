@@ -78,7 +78,6 @@ public class UserRESTService{
     @Path("/login")
     public UserDTO login(@Context HttpServletRequest request, @QueryParam("username") String username, @QueryParam("password") String password) {
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         UserDTO user = userManagementService.getUser(username);
         if(user != null && user.getPassword().equals(password)){
             session.setMaxInactiveInterval(600);

@@ -6,19 +6,18 @@ import hu.codingmentor.dto.MobileDTO;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
-import javax.ejb.Remove;
 import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
+import javax.ejb.Singleton;
 import javax.ejb.StatefulTimeout;
 
-@Stateful
+@Singleton
 @StatefulTimeout(value = 600, unit = TimeUnit.SECONDS)
 public class CartService implements Serializable{
     
     @Resource
     private transient SessionContext context;
  
-    private static final List<MobileDTO> mobiles = new ArrayList<>();
+    private final transient List<MobileDTO> mobiles = new ArrayList<>();
 
     public List<MobileDTO> getMobiles() {
         return mobiles;
@@ -29,19 +28,18 @@ public class CartService implements Serializable{
         return mobile;
     }
     
-    public Integer getNumberOfTheSameMobile(String type, String manufacturer){
-        int numberOfMobilesOfTheSameMobile = 0;
+    public Integer getNumberOfTheSameMobileInTheCart(MobileDTO mobile){
+        int numberOfTheSameMobileInTheCart = 0;
         
         for(MobileDTO m : mobiles){
-            if(type.equals(m.getType()) && manufacturer.equals(m.getManufacturer())){
-              numberOfMobilesOfTheSameMobile++;
+            if(m.equals(mobile)){
+              numberOfTheSameMobileInTheCart++;
             }
         }
-        return numberOfMobilesOfTheSameMobile;
+        return numberOfTheSameMobileInTheCart;
     }
     
-    @Remove
     public void checkout() {
-        mobiles.clear();
+       mobiles.clear(); 
     }   
 }

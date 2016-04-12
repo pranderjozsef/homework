@@ -42,15 +42,12 @@ public class CartRESTService implements Serializable{
     @POST
     public List <MobileDTO> addToCart(@Context HttpServletRequest request, MobileDTO mobile) {
         LoginCheck.isLogedIn(request);
-        for(MobileDTO m : inventoryService.getMobileList()){
-            if(mobile.equals(m)){
-                if(m.getPiece()-cartService.getNumberOfTheSameMobile(m.getType(), m.getManufacturer()) > 0)
-                {
-                    cartService.addToCart(mobile);
-                    return cartService.getMobiles();
-                }
-                throw new BadRequestException("This mobile is out of stock.");
+        if(inventoryService.getMobileList().contains(mobile)){
+            if(mobile.getPiece()-cartService.getNumberOfTheSameMobileInTheCart(mobile) > 0){
+                cartService.addToCart(mobile);
+                return cartService.getMobiles();                
             }
+            throw new BadRequestException("This mobile is out of stock.");
         }
         throw new BadRequestException("This shop doesn't sell this kind of mobile.");
     }
@@ -60,13 +57,12 @@ public class CartRESTService implements Serializable{
     public List <MobileDTO> buyMobile(@Context HttpServletRequest request) {
         LoginCheck.isLogedIn(request);
         for(MobileDTO mobileInCart : cartService.getMobiles()){
-            if(inventoryService.getNumberOfTheSameMobile(mobileInCart.getType(), mobileInCart.getManufacturer()) >
-                    cartService.getNumberOfTheSameMobile(mobileInCart.getType(), mobileInCart.getManufacturer())){
+            if(inventoryService.getMobile(mobileInCart).getPiece() >
+                    cartService.getNumberOfTheSameMobileInTheCart(mobileInCart)){
                 inventoryService.buyMobile();
                 cartService.checkout();
                 return cartService.getMobiles();  
-            }
-            else{
+            } else {
                 cartService.checkout();
                 throw new BadRequestException("Some of your chosen mobiles got sold. Your cart is empty now.");
             }

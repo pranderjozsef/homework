@@ -56,7 +56,7 @@ POST
 http://localhost:8080/jp-webshop-web/webresources/inventory
 {
 "manufacturer": "Alcatel",
-"piece": 4,
+"piece": 7,
 "price": 270,
 "type": "Smart Phone"
 }
@@ -66,9 +66,9 @@ http://localhost:8080/jp-webshop-web/webresources/inventory
 Mobilok kosárba tétele (admin is vásárolhat):
 POST
 {
-"manufacturer": "Sony",
-"piece": 3,
-"price": 200,
+"manufacturer": "Samsung",
+"piece": 12,
+"price": 400,
 "type": "Smart Phone"
 }
 

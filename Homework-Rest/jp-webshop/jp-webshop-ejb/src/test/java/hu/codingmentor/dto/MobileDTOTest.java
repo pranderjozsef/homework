@@ -35,11 +35,11 @@ public class MobileDTOTest {
     } 
     
     @Test
-    public void testTypeIncorrect() {
+    public void testTypeIncorrect() throws NoSuchFieldException {
         MobileDTO mobile = new MobileDTO("Smart Phones", "Samsung", 10000, 1);
         
         mobile.setType("S");
-        Set<ConstraintViolation<MobileDTO>> violations = validator.validate(mobile);
+        Set<ConstraintViolation<MobileDTO>> violations = validator.validateProperty(mobile, "type");
         Assert.assertEquals(1, violations.size());
     }
     
@@ -57,7 +57,7 @@ public class MobileDTOTest {
         MobileDTO mobile = new MobileDTO("Smart Phones", "Samsung", 10000, 1);
         
         mobile.setManufacturer("S");
-        Set<ConstraintViolation<MobileDTO>> violations = validator.validate(mobile);
+        Set<ConstraintViolation<MobileDTO>> violations = validator.validateProperty(mobile, "manufacturer");
         Assert.assertEquals(1, violations.size());
     }
     
@@ -75,7 +75,7 @@ public class MobileDTOTest {
         MobileDTO mobile = new MobileDTO("Smart Phones", "Samsung", 10000, 1);
         
         mobile.setPrice(0);
-        Set<ConstraintViolation<MobileDTO>> violations = validator.validate(mobile);
+        Set<ConstraintViolation<MobileDTO>> violations = validator.validateProperty(mobile, "price");
         Assert.assertEquals(1, violations.size());
     }
 
@@ -93,7 +93,7 @@ public class MobileDTOTest {
         MobileDTO mobile = new MobileDTO("Smart Phones", "Samsung", 10000, 1);
         
         mobile.setPiece(-1);
-        Set<ConstraintViolation<MobileDTO>> violations = validator.validate(mobile);
+        Set<ConstraintViolation<MobileDTO>> violations = validator.validateProperty(mobile, "piece");
         Assert.assertEquals(1, violations.size());
     }    
 }

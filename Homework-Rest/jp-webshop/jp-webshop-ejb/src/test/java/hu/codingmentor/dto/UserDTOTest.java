@@ -1,6 +1,8 @@
 package hu.codingmentor.dto;
 
+import hu.codingmentor.constraint.DateOfBirthConstraint;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -42,7 +44,7 @@ public class UserDTOTest {
                             LocalDate.of(1965, 07, 14), LocalDate.of(2012, 10, 20), true);
         
         user.setUsername("U");
-        Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
+        Set<ConstraintViolation<UserDTO>> violations = validator.validateProperty(user, "username");
         Assert.assertEquals(1, violations.size());
     }
     
@@ -64,7 +66,7 @@ public class UserDTOTest {
         
         user.setPassword("Aa1");
         
-        Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
+        Set<ConstraintViolation<UserDTO>> violations = validator.validateProperty(user, "password");
         Assert.assertEquals(1, violations.size());
     }
 
@@ -87,7 +89,10 @@ public class UserDTOTest {
         user.setDateOfBirth(LocalDate.of(2015, 07, 14));
         
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
-        Assert.assertEquals(1, violations.size());
+        Iterator<ConstraintViolation<UserDTO>> iterator = violations.iterator();
+        while (iterator.hasNext()) {
+            Assert.assertEquals("The dateOfBirth isn't in the past or it's later then the registrationDate.", iterator.next().getMessage());
+        }
     }
     
     @Test
@@ -108,7 +113,7 @@ public class UserDTOTest {
         
         user.setRegistrationDate(null);
         
-        Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
+        Set<ConstraintViolation<UserDTO>> violations = validator.validateProperty(user, "registrationDate");
         Assert.assertEquals(1, violations.size());
     }
 }
