@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
-import javax.ejb.Singleton;
+import javax.ejb.Stateful;
 import javax.ejb.StatefulTimeout;
 
-@Singleton
+@Stateful
 @StatefulTimeout(value = 600, unit = TimeUnit.SECONDS)
 public class CartService implements Serializable{
     
