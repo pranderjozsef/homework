@@ -26,6 +26,8 @@ public class Main {
     private static final String LINE = "\n============================================================" 
                                         + "============================================================"
                                         + "============================================================\n";
+    
+    private static final String ICE_RECORDS = "Ice Records";
 
     private Main(){}
     
@@ -40,8 +42,9 @@ public class Main {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         
-        Customer customer = creaCustomer(em, "Andras", "Berenyi", 1962, 9, 17, "berenyia@gmail.com", 
+        Customer customer = creaCustomer("Andras", "Berenyi", 1962, 9, 17, "berenyia@gmail.com", 
                             "Sport", "Music", "Movies", "Art");
+        em.persist(customer);
         
         createTelephone(em, TelephoneType.LANDLINE, "06-96/123-456", customer);
         createTelephone(em, TelephoneType.MOBILE, "06-30/1234-567", customer);
@@ -53,8 +56,8 @@ public class Main {
         Book book = createBook(em, "Originals", "978-81-7525-766-5", 2000, 500, "Random House");
         createBook(em, "Game of Thrones", "978-40-1276-510-7", 4000, 1200, "Pearson");
         
-        CD cd = createCD(em, "Best of Instrumental Core", "978-81-7525", 1000, 14, "Ice Records");
-        createCD(em, "Best of Eminem", "234-10-4726", 1200, 17, "Ice Records");
+        CD cd = createCD(em, "Best of Instrumental Core", "978-81-7525", 1000, 14, ICE_RECORDS);
+        createCD(em, "Best of Eminem", "234-10-4726", 1200, 17, ICE_RECORDS);
         
         createOrder(em, "1234-567", "Description for an order.", customer, item, book, cd);
         
@@ -65,7 +68,7 @@ public class Main {
         emf.close();
     }
     
-    public static Customer creaCustomer(EntityManager em, String firstName, String lastName, 
+    public static Customer creaCustomer(String firstName, String lastName, 
             int year, int month, int day, String email, String... interests){
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
@@ -76,7 +79,6 @@ public class Main {
         customer.setDateOfBirth(calendar.getTime());
         customer.setEmail(email);
         customer.setInterest(new ArrayList<>(Arrays.asList(interests)));
-        em.persist(customer);
         return customer;
     }
     
@@ -159,7 +161,7 @@ public class Main {
         bookPublisher.getResultList().forEach(x -> LOGGER.info(x.toString() + LINE));
         
         TypedQuery<CD> cdRecordLabel = em.createNamedQuery("findCDByRecordLabel", CD.class);
-        cdRecordLabel.setParameter("rl", "Ice Records");
+        cdRecordLabel.setParameter("rl", ICE_RECORDS);
         LOGGER.info("\n\n\n" + LINE + "CDs by record label:" + LINE);
         cdRecordLabel.getResultList().forEach(x -> LOGGER.info(x.toString() + LINE));
         
