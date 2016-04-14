@@ -1,6 +1,7 @@
 package hu.codingmentor.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ public class Item implements Serializable {
     private Integer price;
     
     @ManyToMany(mappedBy = "items")
-    private Collection<Order> orders;
+    private Collection<Order> orders = new ArrayList<>();
 
     public Item() {
         //Empty

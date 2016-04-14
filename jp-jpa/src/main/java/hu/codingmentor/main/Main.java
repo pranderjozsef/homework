@@ -44,22 +44,32 @@ public class Main {
         
         Customer customer = creaCustomer("Andras", "Berenyi", 1962, 9, 17, "berenyia@gmail.com", 
                             "Sport", "Music", "Movies", "Art");
+        
         em.persist(customer);
         
-        createTelephone(em, TelephoneType.LANDLINE, "06-96/123-456", customer);
-        createTelephone(em, TelephoneType.MOBILE, "06-30/1234-567", customer);
+        Telephone telephone = createTelephone(em, TelephoneType.LANDLINE, "06-96/123-456", customer);
+        Telephone telephone2 =createTelephone(em, TelephoneType.MOBILE, "06-30/1234-567", customer);
+        customer.getTelephones().add(telephone);
+        customer.getTelephones().add(telephone2);
         
-        createLoginInfo(em, "AndrasB", "MatyasKiralyTer12", customer);
+        LoginInfo loginInfo = createLoginInfo(em, "AndrasB", "MatyasKiralyTer12", customer);
+        customer.setLoginInfo(loginInfo);
         
         Item item = createItem(em, "165-456-98", "This is an item.", 1700);
-        
         Book book = createBook(em, "Originals", "978-81-7525-766-5", 2000, 500, "Random House");
-        createBook(em, "Game of Thrones", "978-40-1276-510-7", 4000, 1200, "Pearson");
-        
+        Book book2 = createBook(em, "Game of Thrones", "978-40-1276-510-7", 4000, 1200, "Pearson");
         CD cd = createCD(em, "Best of Instrumental Core", "978-81-7525", 1000, 14, ICE_RECORDS);
-        createCD(em, "Best of Eminem", "234-10-4726", 1200, 17, ICE_RECORDS);
+        CD cd2 = createCD(em, "Best of Eminem", "234-10-4726", 1200, 17, ICE_RECORDS);
         
-        createOrder(em, "1234-567", "Description for an order.", customer, item, book, cd);
+        Order order = createOrder(em, "1234-567", "Description for an order.", customer, item, book, cd);
+        
+        item.getOrders().add(order);
+        book.getOrders().add(order);
+        book2.getOrders().add(order);
+        cd.getOrders().add(order);
+        cd2.getOrders().add(order);
+        
+        customer.getOrders().add(order);
         
         callFiveNamedQuery(em);
 
@@ -147,17 +157,18 @@ public class Main {
     }
     
     public static void callFiveNamedQuery(EntityManager em){
-        TypedQuery<LoginInfo> customerLoginName = em.createNamedQuery("findCustomerByLoginName", LoginInfo.class);
-        customerLoginName.setParameter("ln", "AndrasB");
-        LOGGER.info("\n" + LINE + "Customer by login name:" + LINE + customerLoginName.getSingleResult() + LINE + "\n");
+        TypedQuery<Customer> customerId = em.createNamedQuery("findCustomerById", Customer.class);
+        customerId.setParameter("cid", 1L);
+        LOGGER.info("\n" + LINE + "Customer by id:" + LINE + customerId.getSingleResult() + LINE + "\n");
         
-        TypedQuery<Telephone> phoneNumber = em.createNamedQuery("findCustomerByPhoneNumber", Telephone.class);
-        phoneNumber.setParameter("tn", "06-30/1234-567");
-        LOGGER.info("\n" + LINE + "Customer by phone number:" + LINE + phoneNumber.getSingleResult() + LINE + "\n");
+        TypedQuery<Telephone> phoneType = em.createNamedQuery("findPhoneByType", Telephone.class);
+        phoneType.setParameter("tt", TelephoneType.MOBILE);
+        LOGGER.info("\n" + LINE + "Telephones by type:" + LINE); 
+        phoneType.getResultList().forEach(x -> LOGGER.info(x.toString() + LINE));
         
         TypedQuery<Book> bookPublisher = em.createNamedQuery("findBookByPublisher", Book.class);
         bookPublisher.setParameter("p", "Random House");
-        LOGGER.info("\n" + LINE + "Books by publisher:" + LINE);
+        LOGGER.info("\n\n" + LINE + "Books by publisher:" + LINE);
         bookPublisher.getResultList().forEach(x -> LOGGER.info(x.toString() + LINE));
         
         TypedQuery<CD> cdRecordLabel = em.createNamedQuery("findCDByRecordLabel", CD.class);
@@ -168,6 +179,6 @@ public class Main {
         TypedQuery<Item> itemPrice = em.createNamedQuery("findItemByPrice", Item.class);
         itemPrice.setParameter("p", 2100);
         LOGGER.info("\n\n\n" + LINE + "Items by price:" + LINE);
-        itemPrice.getResultList().forEach(x -> LOGGER.info(x.toString() + LINE));       
+        itemPrice.getResultList().forEach(x -> LOGGER.info(x.toString() + LINE));    
     }
 }

@@ -7,14 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "LOGIN_INFO")
-@NamedQuery(name = "findCustomerByLoginName",
-        query = "SELECT l FROM LoginInfo l WHERE l.loginName = :ln")
 public class LoginInfo implements Serializable  {
 
     @Id
@@ -69,6 +66,6 @@ public class LoginInfo implements Serializable  {
 
     @Override
     public String toString() {
-        return "LoginInfo{" + "loginInfoId=" + loginInfoId + ", loginName=" + loginName + ", password=" + password + ", customer=" + customer + '}';
+        return "LoginInfo{" + "loginInfoId=" + loginInfoId + ", loginName=" + loginName + ", password=" + password + '}';
     }
 }

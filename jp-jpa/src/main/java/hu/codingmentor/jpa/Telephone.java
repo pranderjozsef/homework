@@ -13,8 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = "findCustomerByPhoneNumber",
-        query = "SELECT t FROM Telephone t WHERE t.telephoneNumber = :tn")
+@NamedQuery(name = "findPhoneByType",
+        query = "SELECT t FROM Telephone t WHERE t.telephoneType = :tt")
 public class Telephone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -69,6 +69,7 @@ public class Telephone implements Serializable {
 
     @Override
     public String toString() {
-        return "Telephone{" + "telephoneId=" + telephoneId + ", telephoneNumber=" + telephoneNumber + ", telephoneType=" + telephoneType + ", customer=" + customer + '}';
+        return "Telephone{" + "telephoneId=" + telephoneId + ", telephoneNumber=" + telephoneNumber + ", telephoneType=" + telephoneType + '}';
     }
+    
 }
