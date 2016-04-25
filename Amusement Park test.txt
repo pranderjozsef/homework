@@ -1,0 +1,347 @@
+GlassFish
+--------------------------------------------------------------------------
+
+Pool Name: AmusementParkPool
+
+URL: jdbc:derby://localhost:1527/vidampark
+User: admin0
+DatabaseName: vidampark
+ServerName: localhost
+PortNumber: 1527
+Password: admin
+
+
+JNDI Name: AmusementParkJNDI
+--------------------------------------------------------------------------
+
+
+
+createAddress
+POST
+http://localhost:8080/jp-amusementpark-web/webresources/addresses
+{
+	"zipCode": "H-1037",
+	"country": "Hungary",
+	"city": "Gyor",
+	"street": "Unknown Street",
+	"streetNumber": "20/A"
+}
+--------------------------------------------------------------------------
+
+
+createAmusementPark
+POST
+http://localhost:8080/jp-amusementpark-web/webresources/parks/address/1
+{
+	"name": "Funiest Park Ever",
+	"ticketPrice" : 1200,
+	"capital": 10000,
+	"totalArea": 4000
+}
+--------------------------------------------------------------------------
+
+
+
+createMachine
+POST
+http://localhost:8080/jp-amusementpark-web/webresources/machines
+{
+   "fantasyName": "The Wonderful Dodgem",
+   "price" : 2700,	
+   "extent": 500,
+   "ticketPrice": 600,
+   "capacity": 40,
+   "ageRequirement": 18,
+   "machineType" : "DODGEM"
+}
+{
+   "fantasyName": "The Best Carousel",
+   "price" : 2000,	
+   "extent": 480,
+   "ticketPrice": 400,
+   "capacity": 50,
+   "ageRequirement": 14,
+   "machineType" : "CAROUSEL"
+}
+{
+   "fantasyName": "The Exciting Gokart",
+   "price" : 4000,	
+   "extent": 1400,
+   "ticketPrice": 700,
+   "capacity": 20,
+   "ageRequirement": 16,
+   "machineType" : "GOKART"
+}
+--------------------------------------------------------------------------
+
+
+addMachineToPark
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/machines/3/add
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/machines/4/add
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/machines/5/add
+--------------------------------------------------------------------------
+
+
+removeMachineFromPark
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/machines/5/remove
+--------------------------------------------------------------------------
+
+
+createVisitor
+POST
+http://localhost:8080/jp-amusementpark-web/webresources/visitors
+{
+	"spendingMoney": 5000,
+	"timeOfEntry": "2016-01-01 14:44:24",
+	"dateOfBirth": "1980-04-10"
+}
+{
+	"spendingMoney": 7000,
+	"timeOfEntry": "2016-01-01 16:10:52",
+	"dateOfBirth": "2000-06-17"
+}
+{
+	"spendingMoney": 2000,
+	"timeOfEntry": "2016-01-01 08:06:31",
+	"dateOfBirth": "2004-10-27"
+}
+--------------------------------------------------------------------------
+
+
+enterVisitorInPark
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/visitors/6/enter
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/visitors/7/enter
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/visitors/8/enter
+--------------------------------------------------------------------------
+
+
+exitVisitorFromPark
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2/visitors/8/exit
+--------------------------------------------------------------------------
+
+
+getVisitorOnMachine
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/machines/3/visitors/6/geton
+http://localhost:8080/jp-amusementpark-web/webresources/machines/4/visitors/7/geton
+--------------------------------------------------------------------------
+
+
+getVisitorOffMachine
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/machines/3/visitors/6/getoff
+--------------------------------------------------------------------------
+
+
+createGuestbook
+POST
+http://localhost:8080/jp-amusementpark-web/webresources/guestbooks/visitors/6/parks/2
+{
+	"timeOfWrite": "2016-01-01 20:10:40",
+	"text" : "This was a nice day."
+}
+http://localhost:8080/jp-amusementpark-web/webresources/guestbooks/visitors/7/parks/2
+{
+	"timeOfWrite": "2016-01-01 20:20:44",
+	"text" : "I had fun."
+}
+--------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------
+Queries
+--------------------------------------------------------------------------
+GET
+getMachinesByParkId
+http://localhost:8080/jp-amusementpark-web/webresources/queries/machinesByParkId/2
+
+
+GET
+getVisitorsByMachineId
+http://localhost:8080/jp-amusementpark-web/webresources/queries/visitorsByMachineId/4
+
+
+GET
+getNumberOfRestingVisitorByParkId
+http://localhost:8080/jp-amusementpark-web/webresources/queries/numberOfRestingVisitorByParkId/2
+
+
+GET
+getWritingsByParkIdAndVisitorId
+http://localhost:8080/jp-amusementpark-web/webresources/queries/writingsByParkIdAndVisitorId/2/6
+
+
+GET
+getAddressByParkId
+http://localhost:8080/jp-amusementpark-web/webresources/queries/addressByParkId/2
+--------------------------------------------------------------------------
+
+
+
+
+
+
+alap CRUD
+
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+Machine
+--------------------------------------------------------------------------
+GET
+getMachine
+http://localhost:8080/jp-amusementpark-web/webresources/machines/4
+
+
+
+updateMachine
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/machines/4
+{
+   "fantasyName": "The Fabulous Carousel",
+   "price" : 2000,	
+   "extent": 600,
+   "ticketPrice": 510,
+   "capacity": 70,
+   "ageRequirement": 16,
+   "machineType" : "CAROUSEL"
+}
+
+
+
+deleteMachine
+DELETE
+http://localhost:8080/jp-amusementpark-web/webresources/machines/4
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+Gueestbook
+--------------------------------------------------------------------------
+getGuestbook
+GET
+http://localhost:8080/jp-amusementpark-web/webresources/guestbooks/9
+
+
+
+updateGuestbook
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/guestbooks/9
+{
+	"timeOfWrite": "2017-10-20 21:52:40",
+	"text" : "Best amusement park ever."
+}
+
+
+
+deleteGuestbook
+DELETE
+http://localhost:8080/jp-amusementpark-web/webresources/guestbooks/9
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+Visitor
+--------------------------------------------------------------------------
+getVisitor
+GET
+http://localhost:8080/jp-amusementpark-web/webresources/visitors/8
+
+
+
+updateVisitor
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/visitors/8
+{
+	"spendingMoney": 12000,
+	"timeOfEntry": "2017-02-06 08:34:40",
+	"dateOfBirth": "2002-07-10"
+}
+
+
+
+deleteVisitor
+DELETE
+http://localhost:8080/jp-amusementpark-web/webresources/visitors/8
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+Address
+--------------------------------------------------------------------------
+createAddress
+POST
+http://localhost:8080/jp-amusementpark-web/webresources/addresses
+{
+	"zipCode": "H-4072",
+	"country": "Hungary",
+	"city": "Sopron",
+	"street": "New Street",
+	"streetNumber": "10/B"
+}
+
+
+getAddress
+GET
+http://localhost:8080/jp-amusementpark-web/webresources/addresses/11
+
+
+
+updateAddress
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/addresses/11
+{
+	"zipCode": "H-6010",
+	"country": "Hungary",
+	"city": "Pecs",
+	"street": "White Avenue",
+	"streetNumber": "7/C"
+}
+
+
+deleteAddress
+DELETE
+http://localhost:8080/jp-amusementpark-web/webresources/addresses/11
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+AmusementPark
+--------------------------------------------------------------------------
+getAmusementPark
+GET
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2
+
+
+updateAmusementPark
+PUT
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2
+{
+	"name": "Cartmanland",
+	"ticketPrice" : 1200,
+	"capital": 10000,
+	"totalArea": 2000
+}
+
+
+deleteAmusementPark
+DELETE
+http://localhost:8080/jp-amusementpark-web/webresources/parks/2
+--------------------------------------------------------------------------
+
+
+
