@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 public class QueryService {
     
     @Inject
-    EntityFacade entityService;
+    private EntityFacade entityService;
     
     private static final String PARK_ID = "parkId";
     

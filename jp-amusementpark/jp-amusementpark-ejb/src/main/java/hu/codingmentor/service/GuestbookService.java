@@ -15,7 +15,7 @@ import javax.inject.Provider;
 @Stateless
 public class GuestbookService {
     @Inject
-    EntityFacade entityService;
+    private EntityFacade entityService;
     
     @Inject
     private Provider <AmusementParkService> amusementParkService;

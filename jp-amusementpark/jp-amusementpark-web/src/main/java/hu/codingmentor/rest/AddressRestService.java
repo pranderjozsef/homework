@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AddressRestService {
     @Inject
-    AddressService addressService;
+    private AddressService addressService;
     
     @POST
     public Address createAddress(Address address){

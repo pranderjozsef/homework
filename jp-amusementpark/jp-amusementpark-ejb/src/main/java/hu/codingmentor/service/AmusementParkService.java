@@ -24,19 +24,16 @@ import javax.inject.Inject;
 public class AmusementParkService {
     
     @Inject
-    EntityFacade entityService;
+    private EntityFacade entityService;
     
     @Inject
-    AddressService addressService;
+    private AddressService addressService;
     
     @Inject
-    MachineService machineService;
+    private MachineService machineService;
     
     @Inject
-    VisitorService visitorService;
-    
-    @Inject
-    GuestbookService guestbookService;
+    private VisitorService visitorService;
     
     private static final String PARK_NOT_EXIST = "There is no park in the database with the given Id.";
     

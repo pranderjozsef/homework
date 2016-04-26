@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 public class GuestbookRESTService {
 
     @Inject
-    GuestbookService guestbookService;
+    private GuestbookService guestbookService;
     
     @Path("visitors/{visitorId}/parks/{parkId}")
     @POST

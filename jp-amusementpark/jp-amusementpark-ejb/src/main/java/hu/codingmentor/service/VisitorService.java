@@ -10,10 +10,10 @@ import javax.inject.Inject;
 @Stateless
 public class VisitorService {
     @Inject
-    EntityFacade entityService;
+    private EntityFacade entityService;
     
     @Inject
-    GuestbookService guestbookService;
+    private GuestbookService guestbookService;
     
     public void create(Visitor visitor) {
         visitor.setActive(Boolean.FALSE);

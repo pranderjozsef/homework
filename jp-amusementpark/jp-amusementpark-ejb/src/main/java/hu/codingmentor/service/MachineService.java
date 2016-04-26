@@ -20,10 +20,10 @@ import javax.inject.Inject;
 public class MachineService {
     
     @Inject
-    EntityFacade entityService;
+    private EntityFacade entityService;
     
     @Inject
-    VisitorService visitorService;   
+    private VisitorService visitorService;   
     
     public void create(Machine machine) {
         entityService.create(machine);
