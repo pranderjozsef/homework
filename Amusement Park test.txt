@@ -11,7 +11,7 @@ PortNumber: 1527
 Password: admin
 
 
-JNDI Name: AmusementParkJNDI
+JNDI Name: jdbc/vidampark
 --------------------------------------------------------------------------
 
 
