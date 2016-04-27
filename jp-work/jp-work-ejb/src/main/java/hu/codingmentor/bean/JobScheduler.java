@@ -16,19 +16,19 @@ public class JobScheduler {
     private static final Logger LOGGER = Logger.getLogger(JobScheduler.class.getName());
     
     @Inject
-    QueueTopicService queueTopicService;
+    private QueueTopicService queueTopicService;
     
     @Inject
-    FastWorker fastWorker;
+    private FastWorker fastWorker;
     
     @Inject
-    AvarageWorker avarageWorker;
+    private AvarageWorker avarageWorker;
     
     @Inject
-    SlowWorker slowWorker;
+    private SlowWorker slowWorker;
     
     @Resource
-    TimerService timerService;
+    private TimerService timerService;
     
     private int id = 0;
     
