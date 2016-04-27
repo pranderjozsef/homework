@@ -14,10 +14,10 @@ import javax.ws.rs.core.MediaType;
 public class Starter {
     
     @Inject
-    JobScheduler jobScheduler;
+    private JobScheduler jobScheduler;
     
     @Inject
-    JobResult jobResult;
+    private JobResult jobResult;
     
     @POST
     public Boolean startScheduler() {

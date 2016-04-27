@@ -36,13 +36,13 @@ public class JobScheduler {
         queueTopicService.makeJobQueueEmpty();
         
         timerService.createCalendarTimer(new ScheduleExpression()
-                .hour("*").minute("*").second("*/30"));
+                .hour("*").minute("*").second("0"));
     }
     
     @Timeout
     public void createTenJobs(){
         Job job;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             job = new Job();
             
             job.setId(id++);
